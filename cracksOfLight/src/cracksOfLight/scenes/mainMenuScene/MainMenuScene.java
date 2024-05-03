@@ -91,7 +91,7 @@ public class MainMenuScene extends Scene
 	
 	private void initializeBackground()
 	{
-		backgroundImageTile = new Image(getClass().getResourceAsStream("/resources/MainPageTile.png"), 64, 64, true, false);
+		backgroundImageTile = new Image(getClass().getResourceAsStream("/resources/mainMenu/MainPageTile.png"), 64, 64, true, false);
 		//backgroundImageTile.setSmoth(false);
 		
 		backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, false);

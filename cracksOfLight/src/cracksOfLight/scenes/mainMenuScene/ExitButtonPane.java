@@ -33,7 +33,7 @@ public class ExitButtonPane extends StackPane
 	
 	private void initializeBackground()
 	{
-		imageBackground = new Image(getClass().getResourceAsStream("/resources/MainMenuButtonPlaneBackground.png"), 128, 48, true, false);
+		imageBackground = new Image(getClass().getResourceAsStream("/resources/mainMenu/MainMenuButtonPlaneBackground.png"), 128, 48, true, false);
 		
 		backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, false);
 		backgroundImage = new BackgroundImage(imageBackground, 

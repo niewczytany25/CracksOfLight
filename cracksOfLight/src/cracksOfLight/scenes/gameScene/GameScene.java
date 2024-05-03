@@ -158,7 +158,7 @@ public class GameScene extends Scene
                 	System.out.println("West " + goWest);
                 }
 
-                gamePane.moveHeroBy(dx, dy);
+                gamePane.movePlayerBy(dx, dy);
             }
         };
         timer.start();
