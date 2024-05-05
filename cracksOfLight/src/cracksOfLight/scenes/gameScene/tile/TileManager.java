@@ -29,7 +29,7 @@ public class TileManager{
 		
 		System.out.println("tt");
 		
-		tileMap = loadTileMapFromFile("C:\\Users\\ibm\\git\\repository\\cracksOfLight\\src\\resources\\maps\\map.txt");
+		tileMap = loadTileMapFromFile("C:\\Users\\Admin\\git\\CracksOfLight\\cracksOfLight\\src\\resources\\maps\\map.txt");
 		System.out.println("tilemap");
 		
 		for (int i = 0; i < tileMap.length; i++) 

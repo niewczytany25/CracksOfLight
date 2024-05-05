@@ -1,5 +1,6 @@
 package application;
 	
+import crackOfLight.scenes.IntroScene.IntroScene;
 import cracksOfLight.scenes.craftingScene.CraftingScene;
 import cracksOfLight.scenes.gameScene.GameScene;
 import cracksOfLight.scenes.mainMenuScene.*;
@@ -13,7 +14,8 @@ public class Start extends Application
 	SettingScene settingScene;
 	GameScene gameScene;
 	CraftingScene craftingScene;
-	int sceneChoosing = 3; // main - 1 , settings - 2 , game - 3 , crafting - 4
+	IntroScene introScene;
+	int sceneChoosing = 2; // main - 1 , settings - 2 , game - 3 , crafting - 4, 5 - intro
 	
 	
 	@Override
@@ -45,6 +47,11 @@ public class Start extends Application
 			craftingScene = new CraftingScene();
 			stage.setScene(craftingScene);
 		}
+		else if(sceneChoosing == 5)
+		{
+            introScene = new IntroScene();
+            stage.setScene(introScene);
+        }
 		stage.show();
 	}
 	
