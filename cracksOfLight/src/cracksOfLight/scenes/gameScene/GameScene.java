@@ -131,9 +131,14 @@ public class GameScene extends Scene
 	{
 		double speed = 1.0;
 		
+		
+		
 		AnimationTimer timer = new AnimationTimer() 
 		{
-            @Override
+            int counter = 0;
+            int movementStage = 0;
+			
+			@Override
             public void handle(long now) {
                 double dx = 0, dy = 0;
 
@@ -159,6 +164,37 @@ public class GameScene extends Scene
                 }
 
                 gamePane.movePlayerBy(dx, dy);
+                
+                if(goNorth)
+                {
+                	gamePane.player.setSprite(2, movementStage);
+                }
+                else if (goSouth) 
+                {
+                	gamePane.player.setSprite(1, movementStage);
+				}
+                else if (goEast) 
+                {
+                	gamePane.player.setSprite(3, movementStage);
+				}
+                else if (goWest) 
+                {
+                	gamePane.player.setSprite(0, movementStage);
+				}
+                
+                
+                
+                if(counter > 12)
+                {
+                	counter = 0;
+                	movementStage++;
+                	movementStage = movementStage % 4;
+                }
+                else 
+                {
+					counter++;
+				}
+                
             }
         };
         timer.start();

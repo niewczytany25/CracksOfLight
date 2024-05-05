@@ -142,7 +142,7 @@ public class TileManager{
 	    return tileMap;
 	}
 	
-	public void moveMap(int playerPositionX, int playerPositionY)
+	public void moveMap()
 	{
 		for(int i = 0; i < tiles.length; i++)
 		{
@@ -150,14 +150,28 @@ public class TileManager{
 			{
 				if(true)
 				{
-					tiles[i][j].setLayoutX(i * gamePane.tileSize - playerPositionX + gamePane.playerScreenPositionX); 
-					tiles[i][j].setLayoutY(j * gamePane.tileSize - playerPositionY + gamePane.playerScreenPositionY); 
+					tiles[i][j].setLayoutX(i * gamePane.tileSize - gamePane.player.worldPositionX + gamePane.player.screenPositionX);
+					
+					tiles[i][j].setLayoutY(j * gamePane.tileSize - gamePane.player.worldPositionY + gamePane.player.screenPositionY); 
+					
+					if(     i * gamePane.tileSize + gamePane.tileSize > gamePane.player.worldPositionX - gamePane.player.screenPositionX &&
+							i * gamePane.tileSize - gamePane.tileSize < gamePane.player.worldPositionX + gamePane.player.screenPositionX &&
+							j * gamePane.tileSize - gamePane.tileSize < gamePane.player.worldPositionY + gamePane.player.screenPositionY &&
+							j * gamePane.tileSize + gamePane.tileSize > gamePane.player.worldPositionY - gamePane.player.screenPositionY)
+					{
+						tiles[i][j].setVisible(true);
+					}
+					else 
+					{
+						tiles[i][j].setVisible(false);
+					}
 				}
 			}
 		}
 		
-
-		System.out.println("Pos set to " + playerPositionX + " " + playerPositionY);
+		System.out.println("1 1 pos " + tiles[0][0].getLayoutX() + " " + tiles[0][0].getLayoutY());
+		System.out.println("1 1 vis " + tiles[0][0].isVisible());
+		System.out.println("Pos set to " + gamePane.player.worldPositionX + " " + gamePane.player.worldPositionY);
 	}
     
 }
