@@ -1,5 +1,6 @@
 package cracksOfLight.scenes.gameScene;
 
+import cracksOfLight.scenes.gameScene.gamePane.GamePane;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import javafx.scene.layout.StackPane;
 
 public class GameScene extends Scene 
 {
+	boolean debuggingMode = false;
+	
 	StackPane root;
 	
 	AnchorPane anchorPane;
@@ -24,8 +27,6 @@ public class GameScene extends Scene
 	ToolbeltPane toolbeltPane;
 	
 	ToolbeltPopupPane toolbeltPopupPane;
-	
-	boolean goNorth, goSouth, goEast, goWest;
 	
 	public GameScene()
 	{
@@ -77,20 +78,24 @@ public class GameScene extends Scene
 			@Override
 			public void handle(KeyEvent event) 
 			{
-				System.out.println(event.getCode());
+				if(debuggingMode)
+				{
+					System.out.println(event.getCode());
+				}
+				
 				switch (event.getCode()) 
 				{
 				case W:
-					goNorth = true;
+					gamePane.player.goNorth = true;
 					break;
 				case S:
-					goSouth = true;
+					gamePane.player.goSouth = true;
 					break;
 				case A:  
-					goWest = true;
+					gamePane.player.goWest = true;
 					break;
                 case D: 
-                	goEast = true;
+                	gamePane.player.goEast = true;
                 	break;
 				default:
 					break;
@@ -103,20 +108,24 @@ public class GameScene extends Scene
             @Override
             public void handle(KeyEvent event) 
             {
-            	System.out.println(event.getCode());
+            	if(debuggingMode)
+            	{
+            		System.out.println(event.getCode());
+            	}
+            	
                 switch (event.getCode()) 
                 {
                 case W:    
-                	goNorth = false; 
+                	gamePane.player.goNorth = false; 
                 	break;
                 case S:  
-                	goSouth = false; 
+                	gamePane.player.goSouth = false; 
                 	break;
                 case A:  
-                	goWest = false; 
+                	gamePane.player.goWest = false; 
                 	break;
                 case D: 
-                	goEast = false; 
+                	gamePane.player.goEast = false; 
                 	break;
 				default:
 					break;
@@ -128,73 +137,13 @@ public class GameScene extends Scene
 	}
 	
 	private void initializeMovement()
-	{
-		double speed = 1.0;
-		
-		
-		
+	{		
 		AnimationTimer timer = new AnimationTimer() 
 		{
-            int counter = 0;
-            int movementStage = 0;
-			
 			@Override
-            public void handle(long now) {
-                double dx = 0, dy = 0;
-
-                if (goNorth)
-            	{
-                	dy -= speed;
-                	System.out.println("North " + goNorth);
-            	}
-                if (goSouth) 
-            	{
-                	dy += speed;
-                	System.out.println("South " + goSouth);
-            	}
-                if (goEast) 
-                {
-                	dx += speed;
-                	System.out.println("East " + goEast);
-                }
-                if (goWest) 
-                {
-                	dx -= speed;
-                	System.out.println("West " + goWest);
-                }
-
-                gamePane.movePlayerBy(dx, dy);
-                
-                if(goNorth)
-                {
-                	gamePane.player.setSprite(2, movementStage);
-                }
-                else if (goSouth) 
-                {
-                	gamePane.player.setSprite(1, movementStage);
-				}
-                else if (goEast) 
-                {
-                	gamePane.player.setSprite(3, movementStage);
-				}
-                else if (goWest) 
-                {
-                	gamePane.player.setSprite(0, movementStage);
-				}
-                
-                
-                
-                if(counter > 12)
-                {
-                	counter = 0;
-                	movementStage++;
-                	movementStage = movementStage % 4;
-                }
-                else 
-                {
-					counter++;
-				}
-                
+            public void handle(long now) 
+			{
+				gamePane.player.update();
             }
         };
         timer.start();

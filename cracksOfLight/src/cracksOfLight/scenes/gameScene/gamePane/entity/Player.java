@@ -1,6 +1,6 @@
-package cracksOfLight.scenes.gameScene.entity;
+package cracksOfLight.scenes.gameScene.gamePane.entity;
 
-import cracksOfLight.scenes.gameScene.GamePane;
+import cracksOfLight.scenes.gameScene.gamePane.GamePane;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,13 +9,16 @@ import javafx.scene.shape.Rectangle;
 
 public class Player extends Entity 
 {
+	boolean debuggingMode = false;
+	
+    int counter = 0;
+    int movementStage = 0;
+    	
 	GamePane gamePane;
 	
 	ImageView[][] playerSprites;
 	
 	public ImageView displayedSprite;
-	
-	boolean debuggingMode = true;
 	
 	Image playerSpritesImage;
 	
@@ -40,6 +43,8 @@ public class Player extends Entity
 									collisionBoxWidth, collisionBoxHeight));
 		getCollisionBox().setFill(Color.RED);
 		getCollisionBox().setStroke(Color.BLACK);
+		
+		speed = 2.0;
 		
 		initializeImages();
 		
@@ -125,10 +130,86 @@ public class Player extends Entity
 		}
 	}
 	
-	public void setSprite(int direction, int movementStage)
+	public void update()
+	{
+		dx = 0;
+		dy = 0;
+		/*
+		if (goNorth)
+    	{
+        	dy -= speed;
+        	if(debuggingMode)
+        	{
+        		System.out.println("North " + goNorth);
+        	}
+    	}
+        if (goSouth) 
+    	{
+        	dy += speed;
+        	if(debuggingMode)
+        	{
+        		System.out.println("South " + goSouth);
+        	}
+    	}
+        if (goEast) 
+        {
+        	dx += speed;
+        	if(debuggingMode)
+        	{
+        		System.out.println("East " + goEast);
+        	}
+        }
+        if (goWest) 
+        {
+        	dx -= speed;
+        	if(debuggingMode)
+        	{
+        		System.out.println("West " + goWest);
+        	}
+        }
+		*/
+        
+        
+        gamePane.collisionChecker.checkTile(this);
+        
+        gamePane.movePlayerBy(dx, dy);
+        
+        if(goNorth)
+        {
+        	setSprite(2, movementStage);
+        }
+        else if (goSouth) 
+        {
+        	setSprite(1, movementStage);
+		}
+        else if (goEast) 
+        {
+        	setSprite(3, movementStage);
+		}
+        else if (goWest) 
+        {
+        	setSprite(0, movementStage);
+		}
+        
+        if(counter > 12)
+        {
+        	counter = 0;
+        	movementStage++;
+        	movementStage = movementStage % 4;
+        }
+        else 
+        {
+			counter++;
+		}
+	}
+	
+ 	public void setSprite(int direction, int movementStage)
 	{
 		displayedSprite.setViewport(playerSprites[direction][movementStage].getViewport());
-		System.out.println("Image set to " + direction + " " + movementStage);
+		if(debuggingMode)
+		{
+			System.out.println("Image set to " + direction + " " + movementStage);
+		}
 	}
 	
 	public ImageView getSprite()

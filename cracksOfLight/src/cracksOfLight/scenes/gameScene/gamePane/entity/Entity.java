@@ -1,9 +1,14 @@
-package cracksOfLight.scenes.gameScene.entity;
+package cracksOfLight.scenes.gameScene.gamePane.entity;
 
 import javafx.scene.shape.Rectangle;
 
 public class Entity 
 {
+	public boolean goNorth, goSouth, goEast, goWest;
+    public double dx, dy;
+    public double speed;
+
+	
 	private Rectangle body;
 	private Rectangle collisionBox;
 	
@@ -22,8 +27,10 @@ public class Entity
 	public int collisionBoxWorldPositionX;
 	public int collisionBoxWorldPositionY;
 	
-	int collisionBoxWidth;
-	int collisionBoxHeight;
+	public int collisionBoxWidth;
+	public int collisionBoxHeight;
+	
+	public boolean collision = false;
 	
 	public Entity()
 	{

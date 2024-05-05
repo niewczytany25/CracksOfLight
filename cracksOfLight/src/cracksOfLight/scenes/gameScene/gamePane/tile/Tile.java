@@ -1,4 +1,4 @@
-package cracksOfLight.scenes.gameScene.tile;
+package cracksOfLight.scenes.gameScene.gamePane.tile;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,6 +26,7 @@ public class Tile extends ImageView
 		case 1: 
 			{
 				this.setImage(tileImages[1]);
+				collision = true;
 				break;
 			}
 		}

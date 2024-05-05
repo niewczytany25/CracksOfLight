@@ -1,11 +1,12 @@
-package cracksOfLight.scenes.gameScene;
+package cracksOfLight.scenes.gameScene.gamePane;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.CookieManager;
 
-import cracksOfLight.scenes.gameScene.entity.Player;
-import cracksOfLight.scenes.gameScene.tile.TileManager;
+import cracksOfLight.scenes.gameScene.gamePane.entity.Player;
+import cracksOfLight.scenes.gameScene.gamePane.tile.TileManager;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -23,6 +24,10 @@ import javafx.scene.shape.Rectangle;
 
 public class GamePane extends Pane
 {
+	boolean debuggingMode = false;
+	
+	public CollisionChecker collisionChecker = new CollisionChecker(this);
+	
 	//tile sizes
 	
 	private int tilePixelSize = 16;
@@ -38,6 +43,8 @@ public class GamePane extends Pane
 	
 	public int paneSizeX = 640;
 	public int paneSizeY = 480;
+	
+	
 	
 	// fields for initializeBackground()
 	
@@ -103,23 +110,23 @@ public class GamePane extends Pane
 		player.getSprite().setLayoutX(player.screenPositionX);
 		player.getSprite().setLayoutY(player.screenPositionY);
 		
-		//this.getChildren().add(player.getCollisionBox());
-		
-		System.out.println("Dodano gracz: body dodany: " 
-							+ this.getChildren().contains(player.getBody()) 
-							+ ", collisionBox dodany: " 
-							+ this.getChildren().contains(player.getCollisionBox()));
-		
 		
 		tileManager.moveMap();
 	}
 	
-	void movePlayerBy(double dx, double dy) 
+	public void movePlayerBy(double dx, double dy) 
 	{
         if (dx == 0 && dy == 0) return;
         
-        System.out.println("dr ( " + dx + " , " + dy + " )");
-        System.out.println("initial pos ( " + player.worldPositionX + " , " + player.worldPositionY + " )");
+        if(debuggingMode)
+        {
+        	System.out.println("dr ( " + dx + " , " + dy + " )");
+        	System.out.println("initial pos ( " + player.worldPositionX + " , " + player.worldPositionY + " )");
+        }
+        
+        player.collision = false;
+        
+        collisionChecker.checkTile(player);
         
         player.worldPositionX += dx;
         player.worldPositionY += dy;
@@ -127,8 +134,11 @@ public class GamePane extends Pane
         player.collisionBoxWorldPositionX += dx;
         player.collisionBoxWorldPositionY += dy;
         
-        System.out.println("end pos ( " + player.worldPositionX + " , " + player.worldPositionY + " )");
-
+        if(debuggingMode)
+        {
+        	 System.out.println("end pos ( " + player.worldPositionX + " , " + player.worldPositionY + " )");
+        }
+        
         tileManager.moveMap();
     }
 	
