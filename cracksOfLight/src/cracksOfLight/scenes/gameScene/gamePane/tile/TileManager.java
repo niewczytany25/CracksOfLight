@@ -28,7 +28,7 @@ public class TileManager{
 	{
 		this.gamePane = gamePane;
 		
-		tileMap = loadTileMapFromFile("C:\\Users\\ibm\\git\\repository\\cracksOfLight\\src\\resources\\maps\\map.txt");
+		tileMap = loadTileMapFromFile("src/resources/maps/map.txt");
 		
 		if(debuginggMode)
 		{
