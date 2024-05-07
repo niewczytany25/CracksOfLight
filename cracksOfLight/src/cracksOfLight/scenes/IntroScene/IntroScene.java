@@ -1,6 +1,5 @@
 package cracksOfLight.scenes.IntroScene;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +20,7 @@ public class IntroScene extends Scene {
 
     private List<String> slidesText = new ArrayList<>();
     private int currentSlide = 0;
-   
+    private Timeline timeline;
 
     public IntroScene() {
         super(new StackPane(), 600, 400);
@@ -41,8 +40,8 @@ public class IntroScene extends Scene {
         animateText(slideText, getNextSlideText());
         currentSlide++;
 
-        Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(300), event -> nextSlide(slideText))
+        timeline = new Timeline(
+                new KeyFrame(Duration.seconds(10), event -> nextSlide(slideText))
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
@@ -88,12 +87,12 @@ public class IntroScene extends Scene {
     }
 
     private int getStartLine(int slideIndex) {
-    	int[] startLines = {1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66, 71, 76, 81};
+        int[] startLines = {1, 6, 11, 16, 21, 26, 31, 36, 41, 46, 51, 56, 61, 66, 71, 76, 81};
         return startLines[slideIndex];
     }
 
     private int getEndLine(int slideIndex) {
-    	int[] endLines = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 84};
+        int[] endLines = {5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 84};
         return endLines[slideIndex];
     }
 
@@ -118,7 +117,7 @@ public class IntroScene extends Scene {
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(60), event -> {
             textNode.setText(text.substring(0, currentIndex[0]++));
             if (currentIndex[0] > text.length()) {
-                ((Timeline) event.getSource()).stop();
+                this.timeline.stop();
             }
         }));
         timeline.setCycleCount(text.length() + 1);
@@ -148,5 +147,4 @@ public class IntroScene extends Scene {
         }
         return value;
     }
-
 }

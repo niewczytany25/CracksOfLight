@@ -1,6 +1,8 @@
 package cracksOfLight.scenes.gameScene;
 
+import cracksOfLight.application.ApplicationStage;
 import cracksOfLight.scenes.gameScene.gamePane.GamePane;
+import cracksOfLight.scenes.gameScene.toolbeltPane.ToolbeltPane;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -14,6 +16,8 @@ public class GameScene extends Scene
 {
 	boolean debuggingMode = false;
 	
+	ApplicationStage stage;
+	
 	StackPane root;
 	
 	AnchorPane anchorPane;
@@ -22,17 +26,19 @@ public class GameScene extends Scene
 	
 	HealthAndArmorBarsPane heathAndArmorBarsPane;
 	
-	InventoryPane inventoryPane;
+	public InventoryPane inventoryPane;
 	
-	ToolbeltPane toolbeltPane;
+	//ToolbeltPaneOld toolbeltPane;
 	
-	ToolbeltPopupPane toolbeltPopupPane;
+	public ToolbeltPane toolbeltPane;
 	
-	public GameScene()
+	public GameScene(ApplicationStage stage)
 	{
 		super(new Pane());
 		root = new StackPane();
 		super.setRoot(root);
+		
+		this.stage = stage;
 		
 		initializeEventHandlers();
 		initializeMovement();
@@ -52,20 +58,13 @@ public class GameScene extends Scene
 		AnchorPane.setTopAnchor(inventoryPane, 0.0);
 		AnchorPane.setLeftAnchor(inventoryPane, 0.0);
 		
+		//toolbeltPane = new ToolbeltPaneOld();
 		toolbeltPane = new ToolbeltPane();
 		
-		AnchorPane.setBottomAnchor(toolbeltPane, -4.0);
+		AnchorPane.setBottomAnchor(toolbeltPane, 0.0);
 		AnchorPane.setLeftAnchor(toolbeltPane, 0.0);
 		
-		toolbeltPopupPane = new ToolbeltPopupPane();
-		
-		AnchorPane.setBottomAnchor(toolbeltPopupPane, 32.0 + 3);
-		
-		int overWhatTool = -1; // helmet - 0 , chestplate - 1 , pants - 2 , boots - 3 , pickaxe - 4 , sword - 5
-		
-		AnchorPane.setLeftAnchor(toolbeltPopupPane, overWhatTool*32.0 - 4.5);
-		
-		anchorPane.getChildren().addAll(heathAndArmorBarsPane, inventoryPane, toolbeltPane, toolbeltPopupPane);
+		anchorPane.getChildren().addAll(heathAndArmorBarsPane, inventoryPane, toolbeltPane);
 		
 		root.getChildren().add(anchorPane);
 	}
@@ -97,6 +96,11 @@ public class GameScene extends Scene
                 case D: 
                 	gamePane.player.goEast = true;
                 	break;
+                case ESCAPE:
+                	stage.setScene(stage.mainMenuScene);
+                	break;
+                case E:
+                	stage.setScene(stage.craftingScene);
 				default:
 					break;
 				}

@@ -34,7 +34,7 @@ public class TitlePane extends StackPane
 
 	private void initializeBackground()
 	{
-		imageBackground = new Image(getClass().getResourceAsStream("/resources/mainMenu/MainMenuTitlePlaneBackground.png"), 224, 96, true, false);
+		imageBackground = new Image(getClass().getResourceAsStream("/resources/mainMenu/gameTitle.png"), 224, 96, true, false);
 		
 		backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, false);
 		backgroundImage = new BackgroundImage(imageBackground, 

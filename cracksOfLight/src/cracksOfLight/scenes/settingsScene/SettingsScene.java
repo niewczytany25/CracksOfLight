@@ -14,9 +14,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class SettingScene extends Scene {
+import cracksOfLight.application.ApplicationStage;
 
-    private int volume;
+public class SettingsScene extends Scene {
+
+    ApplicationStage stage;
+	
+	private int volume;
     private int language;
     private int keyBinds;
 
@@ -32,8 +36,10 @@ public class SettingScene extends Scene {
 
     private File settingsFile;
 
-    public SettingScene() {
+    public SettingsScene(ApplicationStage stage) {
         super(new Pane(), 640, 480);
+        
+        this.stage = stage;
 
         Pane panel1 = new Pane();
         Pane panel2 = new Pane();
@@ -84,6 +90,7 @@ public class SettingScene extends Scene {
 
         backButton.setOnAction(event -> {
             saveSettings();
+            stage.setScene(stage.mainMenuScene);
         });
 
         languageMenu.getLanguageMenu().setOnAction(event -> {

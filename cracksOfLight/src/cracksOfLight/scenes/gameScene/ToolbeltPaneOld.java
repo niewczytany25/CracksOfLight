@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 
-public class ToolbeltPane extends Pane
+public class ToolbeltPaneOld extends Pane
 {
 	
 	double paneSizeX = 196;
@@ -42,7 +42,7 @@ public class ToolbeltPane extends Pane
 	
 	double toolGridSize = 32;
 	
-	public ToolbeltPane()
+	public ToolbeltPaneOld()
 	{
 		initializeBackground();
 		initializeToolbet();

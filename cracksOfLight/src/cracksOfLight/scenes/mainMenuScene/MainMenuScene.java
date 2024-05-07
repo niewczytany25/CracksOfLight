@@ -2,42 +2,40 @@ package cracksOfLight.scenes.mainMenuScene;
 
 import java.io.InputStream;
 
-
+import cracksOfLight.application.ApplicationStage;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class MainMenuScene extends Scene 
 {
 	private Pane root;
 	
+	ApplicationStage stage;
+	
 	private TitlePane titlePane;
-	private StartButtonPane startButtonPane;
-	private SettingsButtonPane settingsButtonPane;
-	private ExitButtonPane exitButtonPane;
+	
+	private CustomButton startButton, settingsButton, exitButton;
 	
 	private Font font;
+
 	
-	private Image backgroundImageTile;
-	private BackgroundSize backgroundSize;
-	
-	private BackgroundImage backgroundImage;
-	
-	private Background background;
-	
-	
-	
-	public MainMenuScene()
+	public MainMenuScene(ApplicationStage stage)
 	{
 		super(new Pane());
 		
-		
+		this.stage = stage;
 		
 		initializeFonts();
 		
@@ -51,59 +49,54 @@ public class MainMenuScene extends Scene
 	
 	private void initializePane()
 	{
-        root = new Pane();
-        
-        int xxx = 30;
-        
-        titlePane = new TitlePane(font);
-        titlePane.setLayoutX(96);
-        titlePane.setLayoutY(192 - xxx);
-        root.getChildren().add(titlePane);
-        
-        startButtonPane = new StartButtonPane(font);
-        startButtonPane.setLayoutX(416);
-        startButtonPane.setLayoutY(120 - xxx);
-        root.getChildren().add(startButtonPane);
-        
-        settingsButtonPane = new SettingsButtonPane(font);
-        settingsButtonPane.setLayoutX(416);
-        settingsButtonPane.setLayoutY(216 - xxx);
-        root.getChildren().add(settingsButtonPane);
-        
-        exitButtonPane = new ExitButtonPane(font);
-        exitButtonPane.setLayoutX(416);
-        exitButtonPane.setLayoutY(312 - xxx);
-        root.getChildren().add(exitButtonPane);
-    }
+		root = new Pane();
+		
+		int xxx = 30;
+		
+		titlePane = new TitlePane(font);
+		titlePane.setLayoutX(96);
+		titlePane.setLayoutY(192 - xxx);
+		root.getChildren().add(titlePane);
+		
+		startButton = new CustomButton(font, "Start", 416, 120 - xxx);
+		root.getChildren().add(startButton);
+		startButton.setOnMousePressed(EventHandler -> {
+			startButton.buttonView.setImage(startButton.buttonPressed);
+			stage.setScene(stage.gameScene);
+		});
+		
+		settingsButton = new CustomButton(font, "Settings", 416, 216 - xxx);
+		root.getChildren().add(settingsButton);
+		settingsButton.setOnMousePressed(EventHandler -> {
+			settingsButton.buttonView.setImage(settingsButton.buttonPressed);
+			stage.setScene(stage.settingsScene);
+		});
+		
+		exitButton = new CustomButton(font, "Exit", 416, 312 - xxx);
+		root.getChildren().add(exitButton);
+		exitButton.setOnMousePressed(EventHandler -> {
+			exitButton.buttonView.setImage(exitButton.buttonPressed);
+			Platform.exit();
+		});
+	}
 	
 	private void initializeFonts()
 	{
 		try 
 		{
-            InputStream stream = getClass().getResourceAsStream("/resources/RobotoMono-Regular.ttf");
-            font = Font.loadFont(stream, 30);
-        } 
+			InputStream stream = getClass().getResourceAsStream("/resources/RobotoMono-Regular.ttf");
+			font = Font.loadFont(stream, 30);
+
+		} 
 		catch (Exception e) 
 		{
-            e.printStackTrace();
-        }
+			e.printStackTrace();
+		}
 	}
 	
 	private void initializeBackground()
 	{
-		backgroundImageTile = new Image(getClass().getResourceAsStream("/resources/mainMenu/MainPageTile.png"), 64, 64, true, false);
-		//backgroundImageTile.setSmoth(false);
-		
-		backgroundSize = new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, false, false);
-		backgroundImage = new BackgroundImage(backgroundImageTile, 
-				BackgroundRepeat.REPEAT, 
-				BackgroundRepeat.REPEAT, 
-				BackgroundPosition.DEFAULT, 
-				backgroundSize);
-		
-		background = new Background(backgroundImage);
-		
-		root.setBackground(background);
+		root.setBackground(new Background(new BackgroundFill(Color.rgb(181, 231, 203), null, root.getInsets())));
 	}
 	
 }

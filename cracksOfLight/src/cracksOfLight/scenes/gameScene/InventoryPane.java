@@ -32,8 +32,8 @@ public class InventoryPane extends Pane
 	
 	String[] itemNames = {"Wood", "Stone", "Leather", "Copper", "Iron", "Gold"};
 	
-	int woodAmount = 1, stoneAmount = 2, leatherAmount = 3, copperAmount = 4, ironAmount = 5, goldAmount = 6;
-	int[] itemAmounts = {woodAmount, stoneAmount, leatherAmount, copperAmount, ironAmount, goldAmount};
+	public int woodAmount = 30, stoneAmount = 30, leatherAmount = 30, copperAmount = 30, ironAmount = 30, goldAmount = 30;
+	public int[] itemAmounts = {woodAmount, stoneAmount, leatherAmount, copperAmount, ironAmount, goldAmount};
 	
 	double gridSizeX = 72;
 	double gridSizeY = 24;
@@ -86,6 +86,14 @@ public class InventoryPane extends Pane
 		    
 		    GridPane.setConstraints(itemPanes[i], col, row);
 		    inventoryGridPane.getChildren().add(itemPanes[i]);
+		}
+	}
+	
+	public void updateLabels()
+	{
+		for(int i = 0; i < 6; i++)
+		{
+			itemLabels[i].setText(itemAmounts[i] + "x " +  itemNames[i]);
 		}
 	}
 }
