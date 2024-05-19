@@ -142,6 +142,7 @@ public class GameScene extends Scene
 	
 	private void initializeMovement()
 	{		
+		/*
 		AnimationTimer timer = new AnimationTimer() 
 		{
 			@Override
@@ -151,5 +152,8 @@ public class GameScene extends Scene
             }
         };
         timer.start();
+        */
+        GameLoop gameLoop = new GameLoop(this);
+        gameLoop.start();
 	}
 }

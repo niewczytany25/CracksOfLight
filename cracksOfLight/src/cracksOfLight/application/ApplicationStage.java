@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class ApplicationStage extends Stage 
 {
-	int sceneChoosing = 5; // main - 1 , settings - 2 , game - 3 , crafting - 4, intro - 5
+	int sceneChoosing = 1; // main - 1 , settings - 2 , game - 3 , crafting - 4, intro - 5
 	
 	public MainMenuScene mainMenuScene;
 	public SettingsScene settingsScene;
