@@ -5,6 +5,9 @@ import javafx.scene.shape.Rectangle;
 public class Entity 
 {
 	public boolean goNorth, goSouth, goEast, goWest;
+	
+	public int facing = 0; // 0 - north, 1 - south, 2 - east, 3 - west
+	
     public double dx, dy;
     public double speed;
 

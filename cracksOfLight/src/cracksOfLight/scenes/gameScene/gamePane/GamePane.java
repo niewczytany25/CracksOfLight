@@ -37,7 +37,7 @@ public class GamePane extends Pane
 	
 	//tileset
 	
-	TileManager tileManager;
+	public TileManager tileManager;
 	
 	// fields for constructor
 	

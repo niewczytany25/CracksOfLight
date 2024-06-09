@@ -67,8 +67,8 @@ public class Player extends Entity
 			System.out.println("Szerokosc " + width + " Wysokosc " + height);
 		}
 		
-		worldPositionX = 10 * gamePane.tileSize;
-		worldPositionY = 10 * gamePane.tileSize;
+		worldPositionX = 5 * gamePane.tileSize;
+		worldPositionY = 5 * gamePane.tileSize;
 		if(debuggingMode)
 		{
 			System.out.println("World pos " + worldPositionX + " " + worldPositionY);
@@ -85,7 +85,7 @@ public class Player extends Entity
 		}
 		
 		collisionBoxWidth = width/2;
-		collisionBoxHeight = height/2;
+		collisionBoxHeight = height/4;
 		if(debuggingMode)
 		{
 			System.out.println("Size " + collisionBoxWidth + " " + collisionBoxHeight);
@@ -93,7 +93,7 @@ public class Player extends Entity
 		
 		
 		collisionBoxScreenPositionX = screenPositionX + width/4;
-		collisionBoxScreenPositionY = screenPositionY + height/2;
+		collisionBoxScreenPositionY = screenPositionY + 3 * height/4;
 		if(debuggingMode)
 		{
 			System.out.println("Screen pos " + screenPositionX + " " + screenPositionY);
@@ -101,7 +101,7 @@ public class Player extends Entity
 		
 		
 		collisionBoxWorldPositionX = worldPositionX + width/4;
-		collisionBoxWorldPositionY = worldPositionY + height/2;
+		collisionBoxWorldPositionY = (int) (worldPositionY + 2.5 * height/4);
 		if(debuggingMode)
 		{
 			System.out.println("World pos " + collisionBoxWorldPositionX + " " + collisionBoxWorldPositionY);

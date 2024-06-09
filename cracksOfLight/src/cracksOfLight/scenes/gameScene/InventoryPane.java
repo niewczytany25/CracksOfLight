@@ -32,7 +32,7 @@ public class InventoryPane extends Pane
 	
 	String[] itemNames = {"Wood", "Stone", "Leather", "Copper", "Iron", "Gold"};
 	
-	public int woodAmount = 30, stoneAmount = 30, leatherAmount = 30, copperAmount = 30, ironAmount = 30, goldAmount = 30;
+	public int woodAmount = 0, stoneAmount = 0, leatherAmount = 0, copperAmount = 0, ironAmount = 0, goldAmount = 0;
 	public int[] itemAmounts = {woodAmount, stoneAmount, leatherAmount, copperAmount, ironAmount, goldAmount};
 	
 	double gridSizeX = 72;

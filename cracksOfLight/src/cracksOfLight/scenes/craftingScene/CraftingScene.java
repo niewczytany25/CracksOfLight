@@ -65,14 +65,14 @@ public class CraftingScene extends Scene
 	ToolbeltItem pickaxeItem;
 	Label pickaxeLabel;
 	String[] pickaxeLabelTexts = {"Leather Pickaxe: \n 5 Stone", "Copper Pickaxe: \n 5 Copper", "Iron Pickaxe: \n 5 Iron", "Gold Pickaxe: \n 5 Gold", "Your pickaxe has \n maximum level"};
-	int pickaxeLevel = 0;
+	public int pickaxeLevel = 0;
 	
 	Pane swordPane;
 	ImageView swordPaneBackgroundView;
 	ToolbeltItem swordItem;
 	Label swordLabel;
 	String[] swordLabelTexts = {"Leather Sword: \n 5 Stone", "Copper Sword: \n 5 Copper", "Iron Sword: \n 5 Iron", "Gold Sword: \n 5 Gold", "Your sword has \n maximum level"};
-	int swordLevel = 0;
+	public int swordLevel = 0;
 	
 	public CraftingScene(ApplicationStage stage)
 	{
@@ -641,6 +641,11 @@ public class CraftingScene extends Scene
 						System.out.println(stage.gameScene.inventoryPane.itemAmounts[1]);
 						
 						stage.gameScene.inventoryPane.updateLabels();
+						
+						stage.gameScene.gamePane.tileManager.changeTile(17, 24, 0);
+						stage.gameScene.gamePane.tileManager.changeTile(17, 25, 0);
+						stage.gameScene.gamePane.tileManager.changeTile(17, 26, 0);
+						
 					}
 					
 					
@@ -661,6 +666,10 @@ public class CraftingScene extends Scene
 						System.out.println(stage.gameScene.inventoryPane.itemAmounts[3]);
 						
 						stage.gameScene.inventoryPane.updateLabels();
+						
+						stage.gameScene.gamePane.tileManager.changeTile(29, 37, 0);
+						stage.gameScene.gamePane.tileManager.changeTile(29, 38, 0);
+						stage.gameScene.gamePane.tileManager.changeTile(29, 39, 0);
 					}
 					break;
 				}
@@ -679,6 +688,10 @@ public class CraftingScene extends Scene
 						System.out.println(stage.gameScene.inventoryPane.itemAmounts[4]);
 						
 						stage.gameScene.inventoryPane.updateLabels();
+						
+						stage.gameScene.gamePane.tileManager.changeTile(32, 26, 0);
+						stage.gameScene.gamePane.tileManager.changeTile(33, 26, 0);
+						stage.gameScene.gamePane.tileManager.changeTile(34, 26, 0);
 					}
 					break;
 				}

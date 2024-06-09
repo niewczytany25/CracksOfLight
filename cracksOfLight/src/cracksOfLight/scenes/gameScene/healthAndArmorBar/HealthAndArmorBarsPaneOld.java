@@ -1,4 +1,4 @@
-package cracksOfLight.scenes.gameScene;
+package cracksOfLight.scenes.gameScene.healthAndArmorBar;
 
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class HealthAndArmorBarsPane extends AnchorPane 
+public class HealthAndArmorBarsPaneOld extends AnchorPane 
 {
 	
 	double paneSizeX = 32;
@@ -34,7 +34,7 @@ public class HealthAndArmorBarsPane extends AnchorPane
 	GridPane barsGridPane;
 	
 	
-	public HealthAndArmorBarsPane()
+	public HealthAndArmorBarsPaneOld()
 	{
 		this.setPrefSize(paneSizeX, paneSizeY);
 		
