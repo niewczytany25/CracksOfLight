@@ -21,8 +21,8 @@ public class HealthAndArmorBarsPane extends Pane
 	String emptyHeartImageLocalization = "/resources/emptyHeart.png";
 	String armorImageLocalization = "/resources/armorIcon.png";
 	
-	int health = 10;
-	int armor = 0;
+	public int health = 10;
+	public int armor = 0;
 	
 	
 	public HealthAndArmorBarsPane()

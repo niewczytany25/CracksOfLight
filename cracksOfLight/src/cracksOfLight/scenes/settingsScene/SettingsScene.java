@@ -4,11 +4,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import cracksOfLight.application.ApplicationStage;
+import cracksOfLight.scenes.mainMenuScene.CustomButton;
 import cracksOfLight.scenes.mainMenuScene.MusicPlayer;
 import cracksOfLight.scenes.mainMenuScene.SettingsManager;
 
@@ -22,6 +26,7 @@ public class SettingsScene extends Scene {
     public int keyBinds;
 
     private BackButton backButton;
+    public CustomButton customButton;
     private LanguageMenu languageMenu;
     private KeyBindsMenu keyBindsMenu;
 
@@ -33,21 +38,24 @@ public class SettingsScene extends Scene {
 
     private File settingsFile;
     private MusicPlayer musicPlayer;
+    
+    Font font;
 
     public SettingsScene(ApplicationStage stage) {
         super(new Pane(), 640, 480);
 
         this.stage = stage;
         this.musicPlayer = stage.musicPlayer;
+        this.font = stage.font != null ? stage.font : new Font("Arial", 30);
 
         Pane panel1 = new Pane();
         Pane panel2 = new Pane();
         Pane panel3 = new Pane();
         Pane panel4 = new Pane();
-        panel1.setStyle("-fx-background-color: black;");
-        panel2.setStyle("-fx-background-color: grey;");
-        panel3.setStyle("-fx-background-color: grey;");
-        panel4.setStyle("-fx-background-color: grey;");
+        panel1.setBackground(new Background(new BackgroundFill(Color.rgb(93, 155, 121), null, panel1.getInsets())));
+        panel2.setBackground(new Background(new BackgroundFill(Color.rgb(134, 198, 154), null, panel2.getInsets())));
+        panel3.setBackground(new Background(new BackgroundFill(Color.rgb(134, 198, 154), null, panel3.getInsets())));
+        panel4.setBackground(new Background(new BackgroundFill(Color.rgb(134, 198, 154), null, panel4.getInsets())));
 
         VBox root = new VBox();
         root.getChildren().addAll(panel1, panel2, panel3, panel4);
@@ -64,24 +72,26 @@ public class SettingsScene extends Scene {
         title = new Text("Settings");
         title.setX(250);
         title.setY(70);
-        title.setFont(Font.font("Times New Roman", 30));
+        title.setFont(font);
         title.setStyle("-fx-fill: white;");
         panel1.getChildren().add(title);
 
         volumeLabel = new VolumeLabel();
+        volumeLabel.setFont(font);
         panel2.getChildren().add(volumeLabel);
 
         slider = new VolumeSlider();
         panel2.getChildren().add(slider);
-        panel2.getChildren().add(slider.getTextField());
 
         languageLabel = new LanguageLabel();
+        languageLabel.setFont(font);
         panel3.getChildren().add(languageLabel);
 
         languageMenu = new LanguageMenu();
         panel3.getChildren().add(languageMenu);
 
         keybindsLabel = new KeybindsLabel();
+        keybindsLabel.setFont(font);
         panel4.getChildren().add(keybindsLabel);
 
         keyBindsMenu = new KeyBindsMenu();
@@ -90,8 +100,11 @@ public class SettingsScene extends Scene {
         backButton.setOnAction(event -> {
             saveSettings();
             stopMusic();
-            stage.goToMainMenuScene();
+            stage.setScene(stage.mainMenuScene);
+            stage.musicPlayer.playMusic("/resources/game.mp3");
         });
+        
+        backButton.setStyle("-fx-border-color: #171819; -fx-border-width: 2px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-background-color: #486859; -fx-text-fill: white;");
 
         languageMenu.getLanguageMenu().setOnAction(event -> {
             MenuItem menuItem = (MenuItem) event.getTarget();
@@ -111,37 +124,79 @@ public class SettingsScene extends Scene {
             }
         });
 
+
         settingsFile = new File("src/cracksOfLight/scenes/IntroScene/Ustawionka.txt");
         loadSettings();
     }
 
     private void setLanguage(String selectedLanguage) {
-        volumeLabel.setText(selectedLanguage.equals("Polish") ? "Głośność" : (selectedLanguage.equals("Italian") ? "Volume" : "Volume"));
-        languageLabel.setText(selectedLanguage.equals("Polish") ? "Język" : (selectedLanguage.equals("Italian") ? "Lingua" : "Language"));
-        keybindsLabel.setText(selectedLanguage.equals("Polish") ? "Klawisze" : (selectedLanguage.equals("Italian") ? "Tasti di scelta rapida" : "KeyBinds"));
-        backButton.setText(selectedLanguage.equals("Polish") ? "Powrót" : (selectedLanguage.equals("Italian") ? "Indietro" : "Back"));
-        languageMenu.getLanguageMenu().setText(selectedLanguage.equals("Polish") ? "Wybór" : (selectedLanguage.equals("Italian") ? "Scelta" : "Choice"));
-        keyBindsMenu.getKeyBindsMenu().setText(selectedLanguage.equals("Polish") ? "Wybór" : (selectedLanguage.equals("Italian") ? "Scelta" : "Choice"));
-
-        MenuItem arrowsItem = new MenuItem();
-        switch (selectedLanguage) {
-            case "Polish":
-                arrowsItem.setText("Strzałki");
-                break;
-            case "English":
-                arrowsItem.setText("Arrows");
-                break;
-            case "Italian":
-                arrowsItem.setText("Frecce");
-                break;
-        }
+        
+        MenuItem arrowsItem = new MenuItem("Arrows");
+        MenuItem wsadItem = new MenuItem("WSAD");
 
         arrowsItem.setOnAction(event -> {
             keyBinds = 2;
             keyBindsMenu.getKeyBindsMenu().setText(arrowsItem.getText());
         });
+        
+        wsadItem.setOnAction(event -> {
+            keyBinds = 1;
+            keyBindsMenu.getKeyBindsMenu().setText(wsadItem.getText());
+        });
 
+        keyBindsMenu.getKeyBindsMenu().getItems().set(0, wsadItem);
         keyBindsMenu.getKeyBindsMenu().getItems().set(1, arrowsItem);
+    	
+    	if (selectedLanguage == "Polish")
+    	{
+    		title.setText("Ustawienia");
+    		volumeLabel.setText("Głośność");
+    		languageLabel.setText("Język");
+    		keybindsLabel.setText("Przypisania klawiszy");
+    		
+    		backButton.setText("Powrót");
+    		
+    		languageMenu.getLanguageMenu().setText("Polski");
+    		keyBindsMenu.getKeyBindsMenu().setText(keyBinds == 1 ? "WSAD" : "Strzałki");
+    		
+    		arrowsItem.setText("Strzałki");
+    		wsadItem.setText("WSAD");
+    	}
+    	
+    	if (selectedLanguage == "Italian")
+    	{
+    		title.setText("Impostazioni");
+    		volumeLabel.setText("Volume");
+    		languageLabel.setText("Lingua");
+    		keybindsLabel.setText("Tasti di scelta rapida");
+    		
+    		backButton.setText("Indietro");
+    		
+    		languageMenu.getLanguageMenu().setText("Italiano");
+    		keyBindsMenu.getKeyBindsMenu().setText(keyBinds == 1 ? "WSAD" : "Frecce");
+    		
+    		arrowsItem.setText("Frecce");
+    		wsadItem.setText("WSAD");
+    	}
+    	
+    	if (selectedLanguage == "English")
+    	{
+    		title.setText("Settings");
+    		volumeLabel.setText("Volume");
+    		languageLabel.setText("Language");
+    		keybindsLabel.setText("Keybings");
+    		
+    		backButton.setText("Return");
+    		
+    		languageMenu.getLanguageMenu().setText("English");
+    		keyBindsMenu.getKeyBindsMenu().setText(keyBinds == 1 ? "WSAD" : "Arrows");
+    		
+    		arrowsItem.setText("Arrows");
+    		wsadItem.setText("WSAD");
+    	}
+
+
+
 
         switch (selectedLanguage) {
             case "Polish":

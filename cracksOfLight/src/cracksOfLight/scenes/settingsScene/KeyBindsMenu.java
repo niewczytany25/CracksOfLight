@@ -19,7 +19,13 @@ public class KeyBindsMenu extends MenuBar {
 
         getMenus().add(keyBindsMenu);
         setLayoutX(420);
-        setLayoutY(0);
+        setLayoutY(30);
+        
+        this.setStyle("-fx-border-color: #171819; -fx-border-width: 2px; -fx-background-radius: 3; -fx-border-radius: 3;-fx-background-color: #5d9b79; -fx-text-fill: white;");
+        
+        keyBindsMenu.setStyle("-fx-background-color: #5d9b79; -fx-text-fill: white;");
+        keyBindsMenu.setOnShowing(event -> keyBindsMenu.setStyle("-fx-background-color: #5d9b79; -fx-text-fill: black;"));
+        keyBindsMenu.setOnHiding(event -> keyBindsMenu.setStyle("-fx-background-color: #5d9b79; -fx-text-fill: black;"));
     }
 
     public Menu getKeyBindsMenu() {

@@ -21,14 +21,14 @@ public class MainMenuScene extends Scene {
 
     private CustomButton startButton, settingsButton, exitButton;
 
-    private Font font;
+    public Font font;
 
     public MainMenuScene(ApplicationStage stage) {
         super(new Pane());
 
         this.stage = stage;
-
-        initializeFonts();
+        
+        this.font = stage.font;
 
         initializePane();
 
@@ -51,14 +51,17 @@ public class MainMenuScene extends Scene {
         root.getChildren().add(startButton);
         startButton.setOnMousePressed(EventHandler -> {
             startButton.buttonView.setImage(startButton.buttonPressed);
-            stage.goToIntroScene(); // Zmiana na goToIntroScene
+            stage.setScene(stage.introScene);
+            stage.introScene.timeline.play();
+            stage.introScene.textAnimation.play();
         });
 
         settingsButton = new CustomButton(font, "Settings", 416, 216 - xxx);
         root.getChildren().add(settingsButton);
         settingsButton.setOnMousePressed(EventHandler -> {
             settingsButton.buttonView.setImage(settingsButton.buttonPressed);
-            stage.goToSettingsScene();
+            stage.setScene(stage.settingsScene);
+            stage.musicPlayer.playMusic("/resources/settings.mp3");
         });
 
         exitButton = new CustomButton(font, "Exit", 416, 312 - xxx);
@@ -67,15 +70,6 @@ public class MainMenuScene extends Scene {
             exitButton.buttonView.setImage(exitButton.buttonPressed);
             Platform.exit();
         });
-    }
-
-    private void initializeFonts() {
-        try {
-            InputStream stream = getClass().getResourceAsStream("/resources/RobotoMono-Regular.ttf");
-            font = Font.loadFont(stream, 30);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     private void initializeBackground() {

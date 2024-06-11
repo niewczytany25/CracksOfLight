@@ -286,7 +286,7 @@ public class TileManager{
 	        florLayout[randomCol][randomRow] = 5;
 	    }
 	    
-	    for (int i = 0; i < 100; i++) {
+	    for (int i = 0; i < 50; i++) {
 	        int randomRow = random.nextInt(rows);
 	        int randomCol = random.nextInt(cols);
 	        florLayout[randomCol][randomRow] = 6;

@@ -28,13 +28,15 @@ public class GameScene extends Scene
 	
 	public GamePane gamePane;
 	
-	HealthAndArmorBarsPane heathAndArmorBarsPane;
+	public HealthAndArmorBarsPane heathAndArmorBarsPane;
 	
 	public InventoryPane inventoryPane;
 	
 	//ToolbeltPaneOld toolbeltPane;
 	
 	public ToolbeltPane toolbeltPane;
+	
+	boolean keyboardSettingsPlacecholder = false;
 	
 	public GameScene(ApplicationStage stage)
 	{
@@ -86,42 +88,77 @@ public class GameScene extends Scene
 					System.out.println(event.getCode());
 				}
 				
+				
+				
 				if(stage.settingsScene.keyBinds == 1)
 				{
-					
-				}
-				
-				
 				switch (event.getCode()) 
-				{
-				case W:
-					gamePane.player.goNorth = true;
-					gamePane.player.facing = 0;
-					break;
-				case S:
-					gamePane.player.goSouth = true;
-					gamePane.player.facing = 1;
-					break;
-				case A:  
-					gamePane.player.goWest = true;
-					gamePane.player.facing = 3;
-					break;
-                case D: 
-                	gamePane.player.goEast = true;
-                	gamePane.player.facing = 2;
-                	break;
-                case ESCAPE:
-                	stage.setScene(stage.mainMenuScene);
-                	gamePane.player.goNorth = false;
-                	gamePane.player.goSouth = false;
-                	gamePane.player.goEast = false;
-                	gamePane.player.goWest = false;
-                	break;
-                case E:
-                	stage.setScene(stage.craftingScene);
-				default:
-					break;
+					{
+					case W:
+						gamePane.player.goNorth = true;
+						gamePane.player.facing = 0;
+						break;
+					case S:
+						gamePane.player.goSouth = true;
+						gamePane.player.facing = 1;
+						break;
+					case A:  
+						gamePane.player.goWest = true;
+						gamePane.player.facing = 3;
+						break;
+	                case D: 
+	                	gamePane.player.goEast = true;
+	                	gamePane.player.facing = 2;
+	                	break;
+	                case ESCAPE:
+	                	stage.setScene(stage.mainMenuScene);
+	                	gamePane.player.goNorth = false;
+	                	gamePane.player.goSouth = false;
+	                	gamePane.player.goEast = false;
+	                	gamePane.player.goWest = false;
+	                	break;
+	                case E:
+	                	stage.setScene(stage.craftingScene);
+					default:
+						break;
+					}
 				}
+				else
+				{
+					switch (event.getCode()) 
+					{
+					case UP:
+						gamePane.player.goNorth = true;
+						gamePane.player.facing = 0;
+						break;
+					case DOWN:
+						gamePane.player.goSouth = true;
+						gamePane.player.facing = 1;
+						break;
+					case LEFT:  
+						gamePane.player.goWest = true;
+						gamePane.player.facing = 3;
+						break;
+	                case RIGHT: 
+	                	gamePane.player.goEast = true;
+	                	gamePane.player.facing = 2;
+	                	break;
+	                case ESCAPE:
+	                	stage.setScene(stage.mainMenuScene);
+	                	gamePane.player.goNorth = false;
+	                	gamePane.player.goSouth = false;
+	                	gamePane.player.goEast = false;
+	                	gamePane.player.goWest = false;
+	                	break;
+	                case E:
+	                	stage.setScene(stage.craftingScene);
+					default:
+						break;
+					}
+				}
+				
+				
+
 			}
 		});
 		
@@ -135,24 +172,47 @@ public class GameScene extends Scene
             		System.out.println(event.getCode());
             	}
             	
-                switch (event.getCode()) 
+            	if(stage.settingsScene.keyBinds == 1)
+            	{
+                    switch (event.getCode()) 
+                    {
+                    case W:    
+                    	gamePane.player.goNorth = false; 
+                    	break;
+                    case S:  
+                    	gamePane.player.goSouth = false; 
+                    	break;
+                    case A:  
+                    	gamePane.player.goWest = false; 
+                    	break;
+                    case D: 
+                    	gamePane.player.goEast = false; 
+                    	break;
+    				default:
+    					break;
+                    }
+            	}
+                else 
                 {
-                case W:    
-                	gamePane.player.goNorth = false; 
-                	break;
-                case S:  
-                	gamePane.player.goSouth = false; 
-                	break;
-                case A:  
-                	gamePane.player.goWest = false; 
-                	break;
-                case D: 
-                	gamePane.player.goEast = false; 
-                	break;
-				default:
-					break;
-                }
-            }
+                    switch (event.getCode()) 
+                    {
+                    case UP:    
+                    	gamePane.player.goNorth = false; 
+                    	break;
+                    case DOWN:  
+                    	gamePane.player.goSouth = false; 
+                    	break;
+                    case LEFT:  
+                    	gamePane.player.goWest = false; 
+                    	break;
+                    case RIGHT: 
+                    	gamePane.player.goEast = false; 
+                    	break;
+    				default:
+    					break;
+                    }
+				}
+			}
         });
 		
 		this.setOnMouseClicked(event -> {

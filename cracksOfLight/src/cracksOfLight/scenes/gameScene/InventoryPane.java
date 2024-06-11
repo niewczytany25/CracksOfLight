@@ -10,16 +10,13 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class InventoryPane extends Pane 
 {
 	double paneSizeX = 148;
 	double paneSizeY = 76;
-	
-	String backgroundLocation = "/resources/InventoryPaneBackground.png";
-	Image backgroundImageSprite;
-	BackgroundImage backgroundImage;
-	Background background;
 	
 	Pane pane;
 	GridPane inventoryGridPane;
@@ -37,6 +34,7 @@ public class InventoryPane extends Pane
 	
 	double gridSizeX = 72;
 	double gridSizeY = 24;
+	private Rectangle mainBackground;
 	
 	public InventoryPane()
 	{
@@ -49,16 +47,10 @@ public class InventoryPane extends Pane
 	
 	private void initializeBackground()
 	{
-		backgroundImageSprite = new Image(getClass().getResourceAsStream(backgroundLocation), paneSizeX, paneSizeY, false, false);
-		
-		backgroundImage = new BackgroundImage(backgroundImageSprite, 
-				BackgroundRepeat.NO_REPEAT, 
-				BackgroundRepeat.NO_REPEAT, 
-				BackgroundPosition.DEFAULT, 
-				BackgroundSize.DEFAULT);
-		
-		background = new Background(backgroundImage);
-		this.setBackground(background);
+		mainBackground = new Rectangle(0, 0, paneSizeX, paneSizeY);
+		mainBackground.setStroke(Color.BLACK);
+		mainBackground.setFill(Color.rgb(134, 198, 154));
+		this.getChildren().add(mainBackground);
 	}
 	
 	private void initializeIventoryGrid()
@@ -70,8 +62,8 @@ public class InventoryPane extends Pane
 		inventoryGridPane = new GridPane(2, 3);
 		pane.getChildren().add(inventoryGridPane);
 		
-		inventoryGridPane.setHgap(-0.5);
-		inventoryGridPane.setVgap(-0.5);
+		inventoryGridPane.setHgap(0);
+		inventoryGridPane.setVgap(0);
 		
 		for(int i = 0; i < 6; i++)
 		{

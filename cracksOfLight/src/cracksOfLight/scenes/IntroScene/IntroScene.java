@@ -13,7 +13,10 @@ import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import cracksOfLight.application.ApplicationStage;
@@ -22,9 +25,9 @@ public class IntroScene extends Scene {
 
     private List<String> slidesText = new ArrayList<>();
     private int currentSlide = 0;
-    private Timeline timeline;
+    public Timeline timeline;
     private ApplicationStage stage;
-    private Timeline textAnimation;
+    public Timeline textAnimation;
 
     public IntroScene(ApplicationStage stage) {
         super(new StackPane(), 600, 400);
@@ -36,12 +39,15 @@ public class IntroScene extends Scene {
         StackPane.setAlignment(slideText, Pos.CENTER);
         StackPane root = (StackPane) this.getRoot();
         root.getChildren().add(slideText);
+        
+        root.setBackground(new Background(new BackgroundFill(Color.rgb(134, 198, 154), null, root.getInsets())));
 
         Button nextButton = new Button("Następny");
         nextButton.setOnAction(event -> nextSlide(slideText));
         StackPane.setAlignment(nextButton, Pos.BOTTOM_CENTER);
         root.getChildren().add(nextButton);
-
+        nextButton.setStyle("-fx-border-color: #171819; -fx-border-width: 2px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-background-color: #486859; -fx-text-fill: white;");
+        
         animateText(slideText, getNextSlideText());
         currentSlide++;
 
@@ -49,7 +55,6 @@ public class IntroScene extends Scene {
                 new KeyFrame(Duration.seconds(10), event -> nextSlide(slideText))
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
     }
 
     public void loadSlidesText() {
@@ -107,7 +112,9 @@ public class IntroScene extends Scene {
         if (currentSlide < slidesText.size()) {
             return slidesText.get(currentSlide);
         } else {
-            Platform.runLater(() -> stage.startGameAfterIntro());
+            Platform.runLater(() -> {
+            	stage.setScene(stage.gameScene);
+            });
             return "";
         }
     }
@@ -119,6 +126,7 @@ public class IntroScene extends Scene {
         String nextSlideText = getNextSlideText();
         if (!nextSlideText.isEmpty()) {
             animateText(slideText, nextSlideText);
+            textAnimation.play();
             currentSlide++;
         }
     }
@@ -129,7 +137,6 @@ public class IntroScene extends Scene {
             textNode.setText(text.substring(0, currentIndex[0]++));
         }));
         textAnimation.setCycleCount(text.length() + 1);
-        textAnimation.play();
     }
 
     private int readSettingValue(String settingFileName, int lineIndex) {

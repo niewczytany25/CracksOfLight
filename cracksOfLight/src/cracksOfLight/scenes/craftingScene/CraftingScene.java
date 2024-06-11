@@ -189,6 +189,8 @@ public class CraftingScene extends Scene
 						System.out.println(stage.gameScene.inventoryPane.itemAmounts[2]);
 						
 						stage.gameScene.inventoryPane.updateLabels();
+						
+						stage.gameScene.heathAndArmorBarsPane.setArmor(stage.gameScene.heathAndArmorBarsPane.armor += 2);
 					}
 					
 					
@@ -302,6 +304,8 @@ public class CraftingScene extends Scene
 						System.out.println(stage.gameScene.inventoryPane.itemAmounts[2]);
 						
 						stage.gameScene.inventoryPane.updateLabels();
+						
+						stage.gameScene.heathAndArmorBarsPane.setArmor(stage.gameScene.heathAndArmorBarsPane.armor += 2);
 					}
 					
 					
@@ -415,6 +419,8 @@ public class CraftingScene extends Scene
 						System.out.println(stage.gameScene.inventoryPane.itemAmounts[2]);
 						
 						stage.gameScene.inventoryPane.updateLabels();
+						
+						stage.gameScene.heathAndArmorBarsPane.setArmor(stage.gameScene.heathAndArmorBarsPane.armor += 2);
 					}
 					
 					
@@ -528,6 +534,8 @@ public class CraftingScene extends Scene
 						System.out.println(stage.gameScene.inventoryPane.itemAmounts[2]);
 						
 						stage.gameScene.inventoryPane.updateLabels();
+						
+						stage.gameScene.heathAndArmorBarsPane.setArmor(stage.gameScene.heathAndArmorBarsPane.armor += 2);
 					}
 					
 					
@@ -599,7 +607,7 @@ public class CraftingScene extends Scene
 		
 		root.getChildren().add(pickaxePane);
 		
-		pickaxePane.setLayoutX(42);
+		pickaxePane.setLayoutX(42 - 2);
 		pickaxePane.setLayoutY(44 + 2 + 2 + 130 + 130);
 		
 		pickaxePaneBackgroundView = new ImageView();
@@ -725,7 +733,7 @@ public class CraftingScene extends Scene
 		
 		root.getChildren().add(swordPane);
 		
-		swordPane.setLayoutX(42 + 272 + 2);
+		swordPane.setLayoutX(42 + 272);
 		swordPane.setLayoutY(44 + 2 + 130 + 2 + 130);
 		
 		swordPaneBackgroundView = new ImageView();
