@@ -86,6 +86,12 @@ public class GameScene extends Scene
 					System.out.println(event.getCode());
 				}
 				
+				if(stage.settingsScene.keyBinds == 1)
+				{
+					
+				}
+				
+				
 				switch (event.getCode()) 
 				{
 				case W:

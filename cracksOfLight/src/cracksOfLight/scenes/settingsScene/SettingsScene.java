@@ -1,28 +1,25 @@
 package cracksOfLight.scenes.settingsScene;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import cracksOfLight.application.ApplicationStage;
+import cracksOfLight.scenes.mainMenuScene.MusicPlayer;
+import cracksOfLight.scenes.mainMenuScene.SettingsManager;
+
+import java.io.*;
 
 public class SettingsScene extends Scene {
 
     ApplicationStage stage;
-	
-	private int volume;
+
     private int language;
-    private int keyBinds;
+    public int keyBinds;
 
     private BackButton backButton;
     private LanguageMenu languageMenu;
@@ -35,11 +32,13 @@ public class SettingsScene extends Scene {
     private VolumeSlider slider;
 
     private File settingsFile;
+    private MusicPlayer musicPlayer;
 
     public SettingsScene(ApplicationStage stage) {
         super(new Pane(), 640, 480);
-        
+
         this.stage = stage;
+        this.musicPlayer = stage.musicPlayer;
 
         Pane panel1 = new Pane();
         Pane panel2 = new Pane();
@@ -90,7 +89,8 @@ public class SettingsScene extends Scene {
 
         backButton.setOnAction(event -> {
             saveSettings();
-            stage.setScene(stage.mainMenuScene);
+            stopMusic();
+            stage.goToMainMenuScene();
         });
 
         languageMenu.getLanguageMenu().setOnAction(event -> {
@@ -98,11 +98,20 @@ public class SettingsScene extends Scene {
             setLanguage(menuItem.getText());
         });
 
-        setLanguage("English"); // Default language
+        setLanguage("English");
         this.setRoot(root);
 
-        settingsFile = new File("src\\cracksOfLight\\scenes\\IntroScene\\Ustawionka.txt");
+        slider.setValue(SettingsManager.getVolumeSetting() * 100);
+        slider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                double volume = newValue.doubleValue() / 100;
+                SettingsManager.setVolumeSetting(volume);
+                musicPlayer.adjustVolume(volume);
+            }
+        });
 
+        settingsFile = new File("src/cracksOfLight/scenes/IntroScene/Ustawionka.txt");
         loadSettings();
     }
 
@@ -128,11 +137,11 @@ public class SettingsScene extends Scene {
         }
 
         arrowsItem.setOnAction(event -> {
-            keyBinds = 2; // Ustawiamy odpowiednią wartość dla strzałek
-            keyBindsMenu.getKeyBindsMenu().setText(arrowsItem.getText()); // Ustawiamy tekst dla menu
+            keyBinds = 2;
+            keyBindsMenu.getKeyBindsMenu().setText(arrowsItem.getText());
         });
 
-        keyBindsMenu.getKeyBindsMenu().getItems().set(1, arrowsItem); // Zastępujemy poprzedni MenuItem nowym
+        keyBindsMenu.getKeyBindsMenu().getItems().set(1, arrowsItem);
 
         switch (selectedLanguage) {
             case "Polish":
@@ -149,17 +158,21 @@ public class SettingsScene extends Scene {
 
     private void loadSettings() {
         try (BufferedReader reader = new BufferedReader(new FileReader(settingsFile))) {
-            volume = Integer.parseInt(reader.readLine().trim());
+            double volume = Double.parseDouble(reader.readLine().trim());
             language = Integer.parseInt(reader.readLine().trim());
             keyBinds = Integer.parseInt(reader.readLine().trim());
+            slider.setValue(volume * 100);
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
+
+        // Apply loaded settings
+        setLanguage(language == 1 ? "Polish" : (language == 3 ? "Italian" : "English"));
     }
 
     private void saveSettings() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(settingsFile))) {
-            writer.write(volume + "\n");
+            writer.write(Double.toString(slider.getValue() / 100) + "\n");
             writer.write(language + "\n");
             writer.write(keyBinds + "\n");
 
@@ -178,5 +191,13 @@ public class SettingsScene extends Scene {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void playMusic() {
+        musicPlayer.playMusic("/resources/settings.mp3");
+    }
+
+    public void stopMusic() {
+        musicPlayer.stopMusic();
     }
 }

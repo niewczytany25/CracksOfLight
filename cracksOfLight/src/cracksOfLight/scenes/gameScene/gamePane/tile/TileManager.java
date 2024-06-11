@@ -52,8 +52,8 @@ public class TileManager{
 		tileImages[2] = new Image(getClass().getResourceAsStream("/resources/tiles/crate.png"), gamePane.tileSize, gamePane.tileSize, false, false);
 		tileImages[3] = new Image(getClass().getResourceAsStream("/resources/tiles/stone.png"), gamePane.tileSize, gamePane.tileSize, false, false);
 		tileImages[4] = new Image(getClass().getResourceAsStream("/resources/tiles/copperOre.png"), gamePane.tileSize, gamePane.tileSize, false, false);
-		tileImages[5] = new Image(getClass().getResourceAsStream("/resources/tiles/stone.png"), gamePane.tileSize, gamePane.tileSize, false, false);
-		tileImages[6] = new Image(getClass().getResourceAsStream("/resources/tiles/stone.png"), gamePane.tileSize, gamePane.tileSize, false, false);
+		tileImages[5] = new Image(getClass().getResourceAsStream("/resources/tiles/ironOre.png"), gamePane.tileSize, gamePane.tileSize, false, false);
+		tileImages[6] = new Image(getClass().getResourceAsStream("/resources/tiles/goldOre.png"), gamePane.tileSize, gamePane.tileSize, false, false);
 		
 		
 		for (int i = 0; i < tileMap[0].length; i++) 

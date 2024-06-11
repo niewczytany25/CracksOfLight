@@ -9,26 +9,31 @@ import java.util.List;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import cracksOfLight.application.ApplicationStage;
 
 public class IntroScene extends Scene {
 
     private List<String> slidesText = new ArrayList<>();
     private int currentSlide = 0;
     private Timeline timeline;
+    private ApplicationStage stage;
+    private Timeline textAnimation;
 
-    public IntroScene() {
+    public IntroScene(ApplicationStage stage) {
         super(new StackPane(), 600, 400);
+        this.stage = stage;
         loadSlidesText();
 
         Text slideText = new Text();
         slideText.setStyle("-fx-font-size: 24;");
-        StackPane.setAlignment(slideText, Pos.CENTER); // Wyśrodkowanie tekstu
+        StackPane.setAlignment(slideText, Pos.CENTER);
         StackPane root = (StackPane) this.getRoot();
         root.getChildren().add(slideText);
 
@@ -47,7 +52,9 @@ public class IntroScene extends Scene {
         timeline.play();
     }
 
-    private void loadSlidesText() {
+    public void loadSlidesText() {
+        slidesText.clear();
+        currentSlide = 0;
         int languageSetting = readSettingValue("Ustawionka.txt", 1);
         String slidesFileName;
         switch (languageSetting) {
@@ -100,11 +107,15 @@ public class IntroScene extends Scene {
         if (currentSlide < slidesText.size()) {
             return slidesText.get(currentSlide);
         } else {
+            Platform.runLater(() -> stage.startGameAfterIntro());
             return "";
         }
     }
 
     private void nextSlide(Text slideText) {
+        if (textAnimation != null && textAnimation.getStatus() == Timeline.Status.RUNNING) {
+            textAnimation.stop();
+        }
         String nextSlideText = getNextSlideText();
         if (!nextSlideText.isEmpty()) {
             animateText(slideText, nextSlideText);
@@ -114,14 +125,11 @@ public class IntroScene extends Scene {
 
     private void animateText(Text textNode, String text) {
         final int[] currentIndex = {0};
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(60), event -> {
+        textAnimation = new Timeline(new KeyFrame(Duration.millis(60), event -> {
             textNode.setText(text.substring(0, currentIndex[0]++));
-            if (currentIndex[0] > text.length()) {
-                this.timeline.stop();
-            }
         }));
-        timeline.setCycleCount(text.length() + 1);
-        timeline.play();
+        textAnimation.setCycleCount(text.length() + 1);
+        textAnimation.play();
     }
 
     private int readSettingValue(String settingFileName, int lineIndex) {
@@ -146,5 +154,9 @@ public class IntroScene extends Scene {
             e.printStackTrace();
         }
         return value;
+    }
+
+    public void resetSlides() {
+        currentSlide = 0;
     }
 }
