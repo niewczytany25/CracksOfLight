@@ -4,10 +4,8 @@ import java.util.Random;
 
 import cracksOfLight.application.ApplicationStage;
 import cracksOfLight.scenes.gameScene.gamePane.GamePane;
-import cracksOfLight.scenes.gameScene.healthAndArmorBar.HealthAndArmorBarsPaneOld;
 import cracksOfLight.scenes.gameScene.healthAndArmorBar.HealthAndArmorBarsPane;
 import cracksOfLight.scenes.gameScene.toolbeltPane.ToolbeltPane;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;

@@ -13,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class ApplicationStage extends Stage {
-    int sceneChoosing = 1; // main - 1 , settings - 2 , game - 3 , crafting - 4, intro - 5
     public MusicPlayer musicPlayer;
     
     public Font font;
@@ -25,6 +24,8 @@ public class ApplicationStage extends Stage {
     public IntroScene introScene;
 
     public ApplicationStage() {
+    	
+    	System.out.println("Szczególne podziekowania dla Mateusza Roszkowskiego, za pomoc w tłumaczeniu hitorii na język angielski.");
     	
     	initializeFonts();
     	
@@ -40,19 +41,9 @@ public class ApplicationStage extends Stage {
         craftingScene = new CraftingScene(this);
         introScene = new IntroScene(this);
 
-        if (sceneChoosing == 1) {
-            this.setScene(mainMenuScene);
-            musicPlayer.playMusic("/resources/game.mp3");
-        } else if (sceneChoosing == 2) {
-            this.setScene(settingsScene);
-            musicPlayer.playMusic("/resources/settings.mp3");
-        } else if (sceneChoosing == 3) {
-            this.setScene(gameScene);
-            musicPlayer.playMusic("/resources/game.mp3");
-        } else if (sceneChoosing == 4) {
-            this.setScene(craftingScene);
-            musicPlayer.playMusic("/resources/game.mp3");
-        }
+        this.setScene(mainMenuScene);
+        musicPlayer.playMusic("/resources/game.mp3");
+
     }
     
     private void initializeFonts() {

@@ -134,41 +134,6 @@ public class Player extends Entity
 	{
 		dx = 0;
 		dy = 0;
-		/*
-		if (goNorth)
-    	{
-        	dy -= speed;
-        	if(debuggingMode)
-        	{
-        		System.out.println("North " + goNorth);
-        	}
-    	}
-        if (goSouth) 
-    	{
-        	dy += speed;
-        	if(debuggingMode)
-        	{
-        		System.out.println("South " + goSouth);
-        	}
-    	}
-        if (goEast) 
-        {
-        	dx += speed;
-        	if(debuggingMode)
-        	{
-        		System.out.println("East " + goEast);
-        	}
-        }
-        if (goWest) 
-        {
-        	dx -= speed;
-        	if(debuggingMode)
-        	{
-        		System.out.println("West " + goWest);
-        	}
-        }
-		*/
-        
         
         gamePane.collisionChecker.checkTile(this);
         

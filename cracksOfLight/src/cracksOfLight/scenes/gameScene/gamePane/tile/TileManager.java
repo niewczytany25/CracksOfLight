@@ -31,18 +31,6 @@ public class TileManager{
 		
 		tileMap = loadTileMapFromFile("src/resources/maps/map.txt");
 		
-		if(debuginggMode)
-		{
-			for (int i = 0; i < tileMap.length; i++) 
-			{
-	            for (int j = 0; j < tileMap[0].length; j++) 
-	            {
-	                System.out.print(tileMap[i][j] + " ");
-	            }
-	            System.out.print("aha \n");
-	        }
-		}
-		
 		tiles = new Tile[tileMap[0].length][tileMap.length];
 		
 		tileImages = new Image[10];
@@ -74,7 +62,6 @@ public class TileManager{
 			}
 		}
 		
-		//changeTile(4, 16, 0);
 		generateStoneFlor();
 		generateCopperFlor();
 		generateIronFlor();

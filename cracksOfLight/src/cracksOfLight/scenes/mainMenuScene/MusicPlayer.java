@@ -9,7 +9,7 @@ public class MusicPlayer {
     private MediaPlayer mediaPlayer;
 
     public void playMusic(String musicFilePath) {
-        stopMusic(); // Stop any existing music
+        stopMusic();
         URL resource = getClass().getResource(musicFilePath);
         if (resource == null) {
             System.err.println("Plik muzyczny nie został znaleziony: " + musicFilePath);
@@ -21,14 +21,11 @@ public class MusicPlayer {
         double volume = SettingsManager.getVolumeSetting();
         mediaPlayer.setVolume(volume);
         mediaPlayer.play();
-        
-        System.out.println("Muzyka jest odtwarzana."); // Dodajemy wydruk kontrolny
     }
 
     public void stopMusic() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
-            System.out.println("Muzyka została zatrzymana."); // Dodajemy wydruk kontrolny
         }
     }
 

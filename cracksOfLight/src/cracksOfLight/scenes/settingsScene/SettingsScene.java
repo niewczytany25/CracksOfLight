@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import cracksOfLight.application.ApplicationStage;
+import cracksOfLight.scenes.IntroScene.IntroScene;
 import cracksOfLight.scenes.mainMenuScene.CustomButton;
 import cracksOfLight.scenes.mainMenuScene.MusicPlayer;
 import cracksOfLight.scenes.mainMenuScene.SettingsManager;
@@ -22,7 +23,7 @@ public class SettingsScene extends Scene {
 
     ApplicationStage stage;
 
-    private int language;
+    public int language;
     public int keyBinds;
 
     private BackButton backButton;
@@ -102,6 +103,7 @@ public class SettingsScene extends Scene {
             stopMusic();
             stage.setScene(stage.mainMenuScene);
             stage.musicPlayer.playMusic("/resources/game.mp3");
+            stage.introScene = new IntroScene(stage);
         });
         
         backButton.setStyle("-fx-border-color: #171819; -fx-border-width: 2px; -fx-background-radius: 3; -fx-border-radius: 3; -fx-background-color: #486859; -fx-text-fill: white;");
@@ -230,18 +232,6 @@ public class SettingsScene extends Scene {
             writer.write(Double.toString(slider.getValue() / 100) + "\n");
             writer.write(language + "\n");
             writer.write(keyBinds + "\n");
-
-            switch (language) {
-                case 1:
-                    System.out.println("Ustawienia zostały zapisane");
-                    break;
-                case 2:
-                    System.out.println("Settings saved");
-                    break;
-                case 3:
-                    System.out.println("Impostazioni sono state configurate");
-                    break;
-            }
 
         } catch (IOException e) {
             e.printStackTrace();

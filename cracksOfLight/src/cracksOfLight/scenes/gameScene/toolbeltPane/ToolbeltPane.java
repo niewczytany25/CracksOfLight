@@ -32,8 +32,6 @@ public class ToolbeltPane extends Pane
 	    
 	    initializeItemBackgrounds();
 	    
-	    //items[0].setItem(toolImages[4][0]);
-	    //items[1].setItem(toolImages[2][1]);
 	}
 	
 	private void initializeImages()

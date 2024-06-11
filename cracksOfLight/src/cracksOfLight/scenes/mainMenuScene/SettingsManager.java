@@ -5,7 +5,7 @@ import java.io.*;
 
 public class SettingsManager {
 
-    private static double volume = 1.0; // Default volume
+    private static double volume = 1.0;
 
     static {
         loadSettings();

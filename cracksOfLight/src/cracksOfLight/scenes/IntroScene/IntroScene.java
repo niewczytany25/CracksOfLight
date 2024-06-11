@@ -60,7 +60,7 @@ public class IntroScene extends Scene {
     public void loadSlidesText() {
         slidesText.clear();
         currentSlide = 0;
-        int languageSetting = readSettingValue("Ustawionka.txt", 1);
+        int languageSetting = stage.settingsScene.language;
         String slidesFileName;
         switch (languageSetting) {
             case 1:
@@ -75,6 +75,8 @@ public class IntroScene extends Scene {
             default:
                 slidesFileName = "polski.txt";
         }
+        
+        slidesText = new ArrayList<String>();
 
         try (InputStream is = getClass().getResourceAsStream(slidesFileName);
              BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {

@@ -37,7 +37,6 @@ public class GameLoop extends AnimationTimer
 		try {
 			Thread.sleep((long) sleepTime);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
